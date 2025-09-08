@@ -1,0 +1,23 @@
+# ===================================================================
+# EXAMPLE CONFIGURATION
+#
+# This is a template for your local configuration.
+# To use it, copy this file and rename it to 'application.properties'.
+# Then, fill in your own local database credentials.
+# The actual 'application.properties' file is ignored by Git.
+# ===================================================================
+
+# --- Spring Boot Application Name ---
+spring.application.name=MyBookshelf
+
+# --- PostgreSQL Connection Settings ---
+# Replace the values below with your local PostgreSQL setup
+spring.datasource.url=jdbc:postgresql://localhost:5432/MyBookshelf
+spring.datasource.username=YOUR_POSTGRES_USERNAME
+spring.datasource.password=YOUR_POSTGRES_PASSWORD
+
+# --- JPA/Hibernate Settings ---
+# These are generally safe to keep as they are for local development
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
