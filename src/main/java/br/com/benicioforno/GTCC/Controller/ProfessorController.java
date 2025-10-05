@@ -1,8 +1,9 @@
 package br.com.benicioforno.GTCC.Controller;
 
 import br.com.benicioforno.GTCC.Model.Professor;
-import br.com.benicioforno.GTCC.Repository.ProfessorRepository;
+import br.com.benicioforno.GTCC.Service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,27 +13,37 @@ import java.util.List;
 public class ProfessorController {
 
     @Autowired
-    private ProfessorRepository professorRepository;
+    private ProfessorService professorService;
 
     @GetMapping
     public List<Professor> listar(){
-        return professorRepository.findAll();
+        return professorService.listar();
     }
 
     @PostMapping("/inserir")
-    public void inserir(@RequestBody Professor professor){
-        professorRepository.save(professor);
+    public ResponseEntity<?> inserir(@RequestBody Professor professor){
+        try{
+            professorService.inserir(professor);
+            ResponseEntity.ok().build();
+        } catch(RuntimeException e){
+            ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return null;
     }
 
     @PostMapping("/deletar/{id}")
-    public void deletarPeloId(Long id){
-        professorRepository.deleteById(id);
+    public ResponseEntity<?> deletarPeloId(Long id){
+        try{
+            professorService.deletarPeloId(id);
+            ResponseEntity.ok().build();
+        } catch (RuntimeException e){
+            ResponseEntity.badRequest().body(e.getMessage());
+        }
+        return null;
     }
 
     @GetMapping("/buscarPeloNome/{nome}")
     public List<Professor> buscarPeloNome(@PathVariable String nome){
-        List<Professor> professores = professorRepository.findAll();
-        professores.removeIf(professor -> !professor.getNome().toLowerCase().contains(nome.toLowerCase()));
-        return professores;
+        return professorService.buscarPeloNome(nome);
     }
 }
