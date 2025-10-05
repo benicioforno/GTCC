@@ -3,6 +3,9 @@ package br.com.benicioforno.GTCC.Repository;
 import br.com.benicioforno.GTCC.Model.Aluno;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+import java.util.List;
 
+public interface AlunoRepository extends JpaRepository<Aluno, Long> {
+    public List<Aluno> findByNomeContainingIgnoreCase(String nome);
+    public List<Aluno> findByMatriculaContainingIgnoreCase(String matricula);
 }
