@@ -9,36 +9,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/professores")
+@RequestMapping("/professor")
 public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
 
-    @GetMapping
+    @GetMapping("/listar")
     public List<Professor> listar(){
         return professorService.listar();
     }
 
     @PostMapping("/inserir")
     public ResponseEntity<?> inserir(@RequestBody Professor professor){
-        try{
-            professorService.inserir(professor);
-            ResponseEntity.ok().build();
-        } catch(RuntimeException e){
-            ResponseEntity.badRequest().body(e.getMessage());
-        }
+        professorService.inserir(professor);
+        ResponseEntity.ok().build();
         return null;
     }
 
     @PostMapping("/deletar/{id}")
     public ResponseEntity<?> deletarPeloId(Long id){
-        try{
-            professorService.deletarPeloId(id);
-            ResponseEntity.ok().build();
-        } catch (RuntimeException e){
-            ResponseEntity.badRequest().body(e.getMessage());
-        }
+        professorService.deletarPeloId(id);
+        ResponseEntity.ok().build();
         return null;
     }
 
