@@ -2,7 +2,6 @@ package br.com.benicioforno.GTCC.Controller;
 
 import br.com.benicioforno.GTCC.Model.Aluno;
 import br.com.benicioforno.GTCC.Service.AlunoService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/aluno")
 public class AlunoController {
 
     @Autowired
@@ -23,23 +22,15 @@ public class AlunoController {
 
     @PostMapping("/inserir")
     public ResponseEntity<?> inserir(@RequestBody Aluno aluno){
-        try {
-            alunoService.inserir(aluno);
-            ResponseEntity.ok().build();
-        }catch (RuntimeException e){
-            ResponseEntity.badRequest().body(e.getMessage());
-        }
+        alunoService.inserir(aluno);
+        ResponseEntity.ok().build();
         return null;
     }
 
     @PostMapping("/deletar/{id}")
     public void deletarPeloId(@PathVariable Long id){
-        try {
-            alunoService.deletarPeloId(id);
-            ResponseEntity.ok().build();
-        }catch(RuntimeException e){
-            ResponseEntity.badRequest().body(e.getMessage());
-        }
+        alunoService.deletarPeloId(id);
+        ResponseEntity.ok().build();
     }
 
     @GetMapping("/buscarPeloNome/{nome}")
