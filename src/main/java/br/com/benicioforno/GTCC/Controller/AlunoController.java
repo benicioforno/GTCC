@@ -23,7 +23,13 @@ public class AlunoController {
     @PostMapping("/inserir")
     public ResponseEntity<?> inserir(@RequestBody Aluno aluno){
         alunoService.inserir(aluno);
-        ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/deletar/{id}")
+    public ResponseEntity<?> deletarPeloId(@PathVariable Long id){
+        alunoService.deletarPeloId(id);
+        return ResponseEntity.ok().build();
         return null;
     }
 
@@ -40,6 +46,6 @@ public class AlunoController {
 
     @GetMapping("/buscarPelaMatricula/{matricula}")
     public List<Aluno> buscarPelaMatricula(@PathVariable String matricula){
-        return alunoService.buscarPeloMatricula(matricula);
+        return alunoService.buscarPelaMatricula(matricula);
     }
 }

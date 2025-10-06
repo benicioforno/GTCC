@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,22 +30,26 @@ public class AlunoService {
     @Transactional
     public void deletarPeloId(Long id){
         if(id == null){
-            throw new RuntimeException("Id nulo.");
+            throw new RuntimeException("ID do aluno nulo.");
         }
         alunoRepository.deleteById(id);
     }
 
     public List<Aluno> buscarPeloNome(String nome){
-        if(nome == null || nome.trim().isEmpty()){
-            return new ArrayList<>();
+        if(nome == null){
+            throw new RuntimeException("Nome do aluno nulo.");
+        } else if (nome.trim().isEmpty()) {
+            throw new RuntimeException("Nome do aluno vazio.");
         }
         return alunoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    public List<Aluno> buscarPeloMatricula(String matricula){
-        if(matricula == null || matricula.trim().isEmpty()){
-            return new ArrayList<>();
+    public List<Aluno> buscarPelaMatricula(String matricula){
+        if(matricula == null){
+            throw new RuntimeException("Matricula do aluno nula.");
+        } else if (matricula.trim().isEmpty()) {
+            throw new RuntimeException("Matricula do aluno vazia.");
         }
-        return alunoRepository.findByMatriculaContainingIgnoreCase(matricula);
+        return alunoRepository.findByMatriculaContaining(matricula);
     }
 }
