@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/alunos")
+@RequestMapping("/aluno")
 public class AlunoController {
 
     @Autowired
@@ -30,6 +30,13 @@ public class AlunoController {
     public ResponseEntity<?> deletarPeloId(@PathVariable Long id){
         alunoService.deletarPeloId(id);
         return ResponseEntity.ok().build();
+        return null;
+    }
+
+    @PostMapping("/deletar/{id}")
+    public void deletarPeloId(@PathVariable Long id){
+        alunoService.deletarPeloId(id);
+        ResponseEntity.ok().build();
     }
 
     @GetMapping("/buscarPeloNome/{nome}")
