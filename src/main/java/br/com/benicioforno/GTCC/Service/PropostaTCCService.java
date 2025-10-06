@@ -75,13 +75,13 @@ public class PropostaTCCService {
         if(nomeProfessor == null || nomeProfessor.trim().isEmpty()){
             return new ArrayList<>();
         }
-        return propostaTCCRepository.findByNomeProfessorIgnoreCase(nomeProfessor);
+        return propostaTCCRepository.findByProfessorNomeIgnoreCase(nomeProfessor);
     }
 
     public List<PropostaTCC> buscarPeloConhecimentoNecessario(String conhecimentoNecessario){
         if(conhecimentoNecessario == null || conhecimentoNecessario.trim().isEmpty()){
             return new ArrayList<>();
         }
-        return propostaTCCRepository.findByConhecimentoNecessarioContainingIgnoreCase(conhecimentoNecessario);
+        return propostaTCCRepository.findByConhecimentosNecessariosContainingIgnoreCase(conhecimentoNecessario);
     }
 }
