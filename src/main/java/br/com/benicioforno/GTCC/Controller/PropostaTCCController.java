@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/propostasTCC")
+@RequestMapping("/propostaTCC")
 public class PropostaTCCController {
 
     @Autowired
@@ -20,12 +20,8 @@ public class PropostaTCCController {
     private ResponseEntity<?> mudarStatus(@PathVariable Long idProposta,
                                              @RequestParam("status") Status novoStatus,
                                              @RequestParam(value = "idAluno", required = false) Long idAluno){
-        try {
-            propostaTCCService.mudarStatus(idProposta, novoStatus, idAluno);
-            ResponseEntity.ok().build();
-        } catch (RuntimeException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        propostaTCCService.mudarStatus(idProposta, novoStatus, idAluno);
+        ResponseEntity.ok().build();
         return null;
     }
 
@@ -36,22 +32,14 @@ public class PropostaTCCController {
 
     @PostMapping("/inserir")
     public ResponseEntity<?> inserir(@RequestBody PropostaTCC propostaTCC){
-        try{
-            propostaTCCService.inserir(propostaTCC);
-            return ResponseEntity.ok().build();
-        }catch(RuntimeException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        propostaTCCService.inserir(propostaTCC);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/deletar/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id){
-        try {
-            propostaTCCService.deletar(id);
-            return ResponseEntity.ok().build();
-        } catch(RuntimeException e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        propostaTCCService.deletar(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/buscarPeloProfessor/{nomeProfessor}")
