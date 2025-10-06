@@ -1,8 +1,9 @@
 package br.com.benicioforno.GTCC.Controller;
 
 import br.com.benicioforno.GTCC.Model.Aluno;
-import br.com.benicioforno.GTCC.Repository.AlunoRepository;
+import br.com.benicioforno.GTCC.Service.AlunoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,35 +13,32 @@ import java.util.List;
 public class AlunoController {
 
     @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoService alunoService;
 
     @GetMapping
     public List<Aluno> listar(){
-        List<Aluno> alunos = alunoRepository.findAll();
-        return alunos;
+        return alunoService.listar();
     }
 
     @PostMapping("/inserir")
-    public void inserir(@RequestBody Aluno aluno){
-        alunoRepository.save(aluno);
+    public ResponseEntity<?> inserir(@RequestBody Aluno aluno){
+        alunoService.inserir(aluno);
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/deletar/{id}")
-    public void deletarPeloId(@PathVariable Long id){
-        alunoRepository.deleteById(id);
+    public ResponseEntity<?> deletarPeloId(@PathVariable Long id){
+        alunoService.deletarPeloId(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/buscarPeloNome/{nome}")
     public List<Aluno> buscarPeloNome(@PathVariable String nome){
-        List<Aluno> alunos = alunoRepository.findAll();
-        alunos.removeIf(aluno -> !aluno.getNome().toLowerCase().contains(nome.toLowerCase()));
-        return alunos;
+        return alunoService.buscarPeloNome(nome);
     }
 
     @GetMapping("/buscarPelaMatricula/{matricula}")
     public List<Aluno> buscarPelaMatricula(@PathVariable String matricula){
-        List<Aluno> alunos = alunoRepository.findAll();
-        alunos.removeIf(aluno -> !aluno.getMatricula().equals(matricula));
-        return alunos;
+        return alunoService.buscarPelaMatricula(matricula);
     }
 }
